@@ -2,6 +2,10 @@
 
 A CLI tool to sync Douban book information to your Notion database.
 
+## Requirements
+
+- Node.js >= 18.0.0
+
 ## Setup
 
 1. Copy `config/default.toml` and rename it to `config/config.toml`
@@ -10,20 +14,37 @@ A CLI tool to sync Douban book information to your Notion database.
    ```bash
    npm install
    ```
+4. Make the CLI globally available (optional):
+   ```bash
+   npm link
+   ```
 
 ## Usage
 
-You can use either a Douban book URL or a book name:
+If you've made the CLI globally available:
 
 ```bash
 # Using book URL
-node src/index.js https://book.douban.com/subject/xxxxx
+notion-sync-douban https://book.douban.com/subject/xxxxx
 
 # Using book name
-node src/index.js "三体"
+notion-sync-douban "三体"
 
 # With confirmation mode
-node src/index.js "三体" --confirm
+notion-sync-douban "三体" --confirm
+```
+
+Or run it directly:
+
+```bash
+# Using book URL
+npm start https://book.douban.com/subject/xxxxx
+
+# Using book name
+npm start "三体"
+
+# With confirmation mode
+npm start "三体" --confirm
 ```
 
 When using a book name, the tool will search on Douban and use the first result. The found book title will be displayed before proceeding.

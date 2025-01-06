@@ -7,8 +7,12 @@
   "bin": {
     "notion-sync-douban": "./src/index.js"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "link": "npm link"
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",

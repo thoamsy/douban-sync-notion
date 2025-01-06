@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { program } from 'commander';
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import TOML from '@iarna/toml';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -12,10 +12,43 @@ import { NotionClient } from './notion.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Load configuration
-const config = TOML.parse(
-  readFileSync(join(__dirname, '../config/config.toml'), 'utf-8'),
-);
+// 检查配置文件
+const configPath = join(__dirname, '../config/config.toml');
+if (!existsSync(configPath)) {
+  console.error('\n错误: 找不到配置文件！');
+  console.error('请按照以下步骤设置：');
+  console.error('1. 复制 config/default.toml 到 config/config.toml');
+  console.error(
+    '2. 在 config/config.toml 中填入你的 Notion token 和 database ID\n',
+  );
+  process.exit(1);
+}
+
+// 加载配置
+let config;
+try {
+  config = TOML.parse(readFileSync(configPath, 'utf-8'));
+} catch (error) {
+  console.error('\n错误: 配置文件格式不正确！');
+  console.error('请确保 config/config.toml 是有效的 TOML 格式\n');
+  process.exit(1);
+}
+
+// 验证必要的配置项
+if (!config.notion?.token || config.notion.token === 'your-notion-token') {
+  console.error('\n错误: 未设置 Notion token！');
+  console.error('请在 config/config.toml 中设置有效的 Notion token\n');
+  process.exit(1);
+}
+
+if (
+  !config.notion?.database_id ||
+  config.notion.database_id === 'your-database-id'
+) {
+  console.error('\n错误: 未设置 Notion database ID！');
+  console.error('请在 config/config.toml 中设置有效的 database ID\n');
+  process.exit(1);
+}
 
 program
   .name('notion-sync-douban')
@@ -60,7 +93,7 @@ program
       await notionClient.addBookToDatabase(bookInfo);
       console.log('Successfully added to Notion!');
     } catch (error) {
-      console.error('Error:', error.message);
+      console.error('\nError:', error.message);
       process.exit(1);
     }
   });
