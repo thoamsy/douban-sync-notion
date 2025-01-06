@@ -1,0 +1,21 @@
+{
+  "name": "notion-sync-douban",
+  "version": "1.0.0",
+  "description": "Sync Douban book information to Notion database",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "notion-sync-douban": "./src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "@iarna/toml": "^2.2.5",
+    "@notionhq/client": "^2.2.14",
+    "axios": "^1.6.7",
+    "cheerio": "^1.0.0-rc.12",
+    "commander": "^12.0.0",
+    "inquirer": "^9.2.15"
+  }
+}

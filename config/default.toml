@@ -1,0 +1,15 @@
+# Notion configuration
+[notion]
+token = "your-notion-token"
+database_id = "your-database-id"
+
+# Optional: Configure the database property names
+[notion.properties]
+title = "书名"
+author = "作者"
+translator = "译者"
+cover = "封面"
+rating = "豆瓣评分"
+summary = "简介"
+pages = "页数"
+douban_url = "豆瓣链接"
