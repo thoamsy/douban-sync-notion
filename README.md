@@ -2,6 +2,11 @@
 
 A CLI tool to sync Douban book information to your Notion database.
 
+
+https://github.com/user-attachments/assets/cb58e818-00dd-4e07-a64b-b16c33f85d7b
+
+
+
 ## Requirements
 
 - Node.js >= 18.0.0
