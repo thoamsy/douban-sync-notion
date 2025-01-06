@@ -13,13 +13,20 @@ A CLI tool to sync Douban book information to your Notion database.
 
 ## Usage
 
+You can use either a Douban book URL or a book name:
+
 ```bash
-# Basic usage
-node src/index.js <douban-book-url>
+# Using book URL
+node src/index.js https://book.douban.com/subject/xxxxx
+
+# Using book name
+node src/index.js "三体"
 
 # With confirmation mode
-node src/index.js <douban-book-url> --confirm
+node src/index.js "三体" --confirm
 ```
+
+When using a book name, the tool will search on Douban and use the first result. The found book title will be displayed before proceeding.
 
 ## Configuration
 

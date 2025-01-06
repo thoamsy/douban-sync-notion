@@ -6,7 +6,7 @@ import TOML from '@iarna/toml';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import inquirer from 'inquirer';
-import { fetchBookInfo } from './douban.js';
+import { searchAndFetchBookInfo } from './douban.js';
 import { NotionClient } from './notion.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -21,13 +21,13 @@ program
   .name('notion-sync-douban')
   .description('Sync Douban book information to Notion database')
   .version('1.0.0')
-  .argument('<url>', 'Douban book URL')
+  .argument('<input>', 'Douban book URL or book name')
   .option('-c, --confirm', 'Enable confirmation before updating Notion', false)
-  .action(async (url, options) => {
+  .action(async (input, options) => {
     try {
-      // 1. 获取豆瓣图书信息
+      // 1. 搜索并获取豆瓣图书信息
       console.log('Fetching book information...');
-      const bookInfo = await fetchBookInfo(url);
+      const bookInfo = await searchAndFetchBookInfo(input);
 
       // 2. 如果启用确认模式，显示信息并等待确认
       if (options.confirm) {
